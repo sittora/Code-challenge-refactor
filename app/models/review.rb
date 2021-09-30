@@ -5,15 +5,21 @@ class Review < ActiveRecord::Base
     #     - `Review#user`
     #   - returns the `User` instance for this Review
     def user
-        user = User.find_by(id: self.user_id)
-        user.name
+        User.find_by(id: self.user_id)
     end
 
     # - `Review#product`
     #   - returns the `Product` instance for this Review
     def product
-        product = Product.find_by(id: self.user_id)
-        product.name
+        Product.find_by(id: self.product_id)
+    end
+
+#     - `Review#print_review`
+#   - should `puts` to the terminal a string formatted as follows: `Review for {insert product name} by {insert user name}: {insert review star_rating}. {insert review comment}`
+    def print_review
+        my_product = Product.find_by(id: self.product_id)
+        my_user = User.find_by(id: self.user_id)
+        "Review for #{my_product.name} by #{my_user.name}: #{self.star_rating}. #{self.comment}"
     end
 
 end
