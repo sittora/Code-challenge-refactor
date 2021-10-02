@@ -1,19 +1,6 @@
 class User < ActiveRecord::Base
-    has_many :products
-    has_many :reviews, through: :products
-
-    #     - `User#reviews`
-    #   - returns a collection of all the Reviews that the User has given
-    def reviews
-        Review.where(user_id: self.id)
-    end
-
-    # - `User#products`
-    #   - returns a collection of all the Products that the User has reviewed
-    def products
-        reviews = Review.where(user_id: self.id)
-        reviews.map{|review| Product.find_by(id: review.product_id) }
-    end
+    has_many :reviews
+    has_many :products, through: :reviews
 
     # - `User#favorite_product`
     #   - returns the product instance that has the highest star rating from this user
